@@ -1,0 +1,55 @@
+﻿@model OrganizerProject.ViewModels.ListBudgetVM
+
+@{
+    ViewBag.Title = "List budżetów";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css'">
+</head>
+
+<h2 style="text-align:center; font-family: Georgia; font-style:italic">Lista budżetów</h2>
+
+<p>
+    <button class="btn btn-info" style="background-color:#00a693; font-family: Georgia; font-style:italic; margin-top:40px" onclick="location.href='@Url.Action("Create")'">Dodaj budżet</button>
+</p>
+
+<body style="margin:20px; margin-left:20px; margin-right:20px">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <table class="table" style="font-size:15px; font-family: Georgia; font-style:italic">
+                    <tr>
+                        <th>Wypłata</th>
+                        <th>Data wypłaty</th>
+                        <th></th>
+                    </tr>
+                    @foreach (var item in Model.budgetVMList)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Salary) zł
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SalaryDate)
+                            </td>
+                           
+                            <td>
+                                @Html.ActionLink("Edytuj", "Edit", new { id = item.BudgetId }) |
+                                
+                                @Html.ActionLink("Usuń", "Delete", new { id = item.BudgetId })
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+    }
+</body>
+</html>

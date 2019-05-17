@@ -1,0 +1,64 @@
+﻿@model OrganizerProject.ViewModels.ListExpenseVM
+
+@{
+    ViewBag.Title = "Lista wydatków";
+}
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css'">
+
+</head>
+
+<h2 style="text-align:center; font-family: Georgia; font-style:italic">Lista wydatków</h2>
+
+<p>
+    <button class="btn btn-info" style="background-color:#00a693; font-family: Georgia; font-style:italic; margin-top:40px"  onclick="location.href='@Url.Action("Create")'">Dodaj wydatek</button>
+</p>
+
+<body style="margin:20px; margin-left:20px; margin-right:20px">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+    
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <table class="table" style="font-size:15px;font-family: Georgia; font-style:italic">
+                    <tr>
+                        <th>Nazwa </th>
+                        <th>Typ</th>
+                        <th>Koszt</th>
+                        <th>Data wydania</th>
+                        <th></th>
+                    </tr>
+                    @foreach (var item in  Model.expenseList)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cost) zł
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ReleaseDate)
+                        </td>
+
+                        <td>
+                            @Html.ActionLink("Edytuj", "Edit", new { id = item.ExpensesId }) |
+                          
+                            @Html.ActionLink("Usuń", "Delete", new { id = item.ExpensesId })
+                        </td>
+                    </tr>
+                    }
+                </table>
+
+    }
+</body>
+</html>

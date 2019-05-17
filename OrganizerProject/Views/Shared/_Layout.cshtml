@@ -1,0 +1,63 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Organizer wydatków</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #00a693; color:black">
+        <div class="container">
+            <div class="navbar-header">
+    
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+
+                </button>
+            </div>
+
+            <div class="navbar-collapse collapse" id=".navbar-collapse">
+
+                <ul class="nav navbar-nav">
+
+                    @if (Session["UserName"] != null)
+                    {
+                        <li><a style="color:white !important; font-family: Georgia !important; font-style:italic; font-size:20px" href="@Url.Action("Index", "User", null ,Request.Url.Scheme)">
+                        <span class="glyphicon glyphicon-home" style="margin-right:5px"></span>Organizer wydatków</a></li>
+                        <li><a style="color:white !important; font-family: Georgia !important; font-style:italic; font-size:20px; margin-top:6px" href="@Url.Action("Edit", "User", null ,Request.Url.Scheme)">Edytuj dane</a></li>
+                        <li><a style="color:white !important; font-family: Georgia !important; font-style:italic; font-size:20px; margin-top:6px" href="@Url.Action("List", "Budget", null ,Request.Url.Scheme)">Twój budżet</a></li>
+                        <li><a style="color:white !important; font-family: Georgia !important; font-style:italic; font-size:20px; margin-top:6px"  href="@Url.Action("List", "Expense", null ,Request.Url.Scheme)">Twoje wydatki</a></li>
+
+                        <li style="margin-top:12px; margin-left:10px">
+                            <h4 style="color:white !important; font-family: Georgia !important; font-style:italic">Witaj @Session["UserName"].ToString() </h4>
+                        </li>
+
+                        <li style=" margin-left:8px">
+                            <button style="margin-top:12px" class="btn btn-danger navbar-btn" value="Wyloguj" onclick="location.href='@Url.Action("Logout", "Authentication")'"><span class="glyphicon glyphicon-off" style="margin-right:5px"></span>Wyloguj się</button>
+                        </li>
+                    }
+                    @if(Session["UserName"] == null)
+                    { 
+                        <h2 style="color:white !important; font-family: Georgia !important; font-style:italic; font-size:22px; margin-top:12px">Organizer wydatków</h2>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>
